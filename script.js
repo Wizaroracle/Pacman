@@ -71,7 +71,7 @@ function displayPacman() {
     if (pacman.poweredUp) {
         document.getElementById("pacman").style.backgroundImage = "url('pacman-art/s/" + pacman.direction + pacman.step + ".png')";
     } else {
-        // Set the background image based on the ghost's ID
+       
         document.getElementById("pacman").style.backgroundImage = "url('pacman-art/" + pacman.direction + pacman.step + ".png')";
     }
 }
@@ -81,21 +81,21 @@ function startPowerUp() {
     pacman.poweredUp = true;
     var ghostSound = new Audio("pacman-art/Music/pac-man-ghost-scared-made-with-Voicemod-technology.mp3");
 
-    // Function to play the ghost sound repeatedly
+    
     function playGhostSound() {
-        ghostSound.currentTime = 0; // Reset the audio to the beginning
+        ghostSound.currentTime = 0; 
         ghostSound.play();
     }
 
-    // Add an event listener to restart the sound when it ends
+    
     ghostSound.addEventListener("ended", playGhostSound);
 
-    // Play the ghost sound effect initially
+   
     playGhostSound();
 
-    // Set a timer to end the power-up after a certain duration
+  
     setTimeout(function () {
-        // Remove the event listener to avoid playing after power-up ends
+        
         ghostSound.removeEventListener("ended", playGhostSound);
         endPowerUp();
     }, powerUpDuration);
@@ -112,27 +112,27 @@ function displayGhost(ghost) {
     ghostElement.style.top = ghost.y * 53 + "px";
     ghostElement.style.left = ghost.x * 51 + "px";
 
-    // Check if Pacman is powered up and apply the corresponding background image
+    
     if (pacman.poweredUp) {
-        ghostElement.style.backgroundImage = "url('pacman-art/ghosts/blue_ghost.gif')"; // Replace with the actual path to your powered-up ghost image
+        ghostElement.style.backgroundImage = "url('pacman-art/ghosts/blue_ghost.gif')"; 
     } else {
-        // Set the background image based on the ghost's ID
-        var ghostImage = "url('pacman-art/ghosts/" + ghost.id + ".gif')"; // Replace with the actual path to your normal ghost image
+        
+        var ghostImage = "url('pacman-art/ghosts/" + ghost.id + ".gif')"; 
         ghostElement.style.backgroundImage = ghostImage;
     }
 }
 function endPowerUp() {
     pacman.poweredUp = false;
 
-    // Reset the ghost positions and set them to roaming state
+    
     for (var i = 0; i < ghosts.length; i++) {
         ghosts[i].poweredUp = false;
         ghosts[i].state = 'roaming';
-        ghosts[i].x = initialGhostPositions[i].x; // Replace with the actual initial x position
-        ghosts[i].y = initialGhostPositions[i].y; // Replace with the actual initial y position
+        ghosts[i].x = initialGhostPositions[i].x; 
+        ghosts[i].y = initialGhostPositions[i].y; 
     }
 
-    // Change the ghost images back to normal after the power-up ends
+    
     displayAllGhosts();
 
 }
@@ -185,7 +185,7 @@ function moveGhost(ghost) {
 
             if (calculateDistance(ghost.x, ghost.y, pacman.x, pacman.y) < 5) {
                 if (pacman.poweredUp) {
-                    // If Pacman is powered up, immobilize the ghost
+                    
                     ghost.state = 'immobilized';
                 } else {
                     ghost.state = 'chasing';
@@ -194,7 +194,7 @@ function moveGhost(ghost) {
         }
 
         if (ghost.state === 'immobilized') {
-            // Ghost is immobilized, do nothing
+            
         }
     } else if (ghost.state === 'chasing') {
         var dx = pacman.x - ghost.x;
@@ -249,31 +249,31 @@ function moveGhost(ghost) {
                 pacman.y = 5;
               
 
-                // Play the lose life sound effect
-                loseLifeSound.currentTime = 0; // Reset the audio to the beginning
+               
+                loseLifeSound.currentTime = 0; 
                 loseLifeSound.play();
 
-                // Pause the game while the sound is playing
+               
                 gamePaused = true;
 
-                // Add an event listener to detect when the lose life sound ends
+                
                 loseLifeSound.addEventListener("ended", function () {
-                    // Resume the game after the sound effect finishes
+                    
                     gamePaused = false;
                     for (var i = 0; i < ghosts.length; i++) {
                         ghosts[i].x = initialGhostPositions[i].x;
                         ghosts[i].y = initialGhostPositions[i].y;
                     }
-                    // Reset ghost positions
-                   
-                    // Update Pacman lives and display
+                    
+                
+                    
                     updatePacmanLives();
 
-                    // Remove the event listener to avoid repeated calls
+                   
                     loseLifeSound.removeEventListener("ended", arguments.callee);
                 });
             } else {
-                // If no lives left, redirect to index.html
+                
                 window.location.href = 'index.html';
             }
         }
@@ -289,16 +289,16 @@ function checkGhostCollision() {
     for (var i = 0; i < ghosts.length; i++) {
         if (calculateDistance(pacman.x, pacman.y, ghosts[i].x, ghosts[i].y) < 1) {
             if (pacman.poweredUp) {
-                // Pacman is powered up, immobilize the ghost
+                
                 ghosts[i].state = 'immobilized';
             } else {
-                // Pacman is not powered up, handle collision (e.g., decrease health)
+                
                 pacman.health--;
                 if (pacman.health > 0) {
                     pacman.x = 27;
                     pacman.y = 5;
                 } else {
-                    // You can add additional logic here, such as resetting the game if health reaches 0
+                    
                 }
             }
         }
@@ -308,24 +308,24 @@ function moveAllGhosts() {
     for (var i = 0; i < ghosts.length; i++) {
         moveGhost(ghosts[i]);
 
-        // Check for collisions with other ghosts
+        
         for (var j = 0; j < ghosts.length; j++) {
-            if (i !== j) { // Avoid self-collision check
+            if (i !== j) {
                 if (calculateDistance(ghosts[i].x, ghosts[i].y, ghosts[j].x, ghosts[j].y) < 1) {
-                    // Handle collision by changing direction
-                    ghosts[i].state = 'roaming'; // Change state or perform other actions
-                    break; // Break out of the loop after handling collision
+                    
+                    ghosts[i].state = 'roaming'; 
+                    break; 
                 }
             }
         }
 
-        // Check for collision with Pacman
+        
         checkGhostCollision();
     }
 }
 
 
-// Add this at the beginning of your JavaScript code to preload the audio
+
 var coinSound = new Audio("pacman-art/Music/pac-man-ghost-touched-made-with-Voicemod-technology.mp3");
 
 function updateScore() {
@@ -334,8 +334,8 @@ function updateScore() {
         world[pacman.y][pacman.x] = 0;
         displayWorld();
 
-        // Play the coin sound effect
-        coinSound.currentTime = 0; // Reset the audio to the beginning
+        
+        coinSound.currentTime = 0; 
         coinSound.play();
     }
 
@@ -345,11 +345,11 @@ function updateScore() {
 
 
 function updatePacmanLives() {
-    // Update the display based on the current number of lives
+   
     for (var i = 1; i <= 3; i++) {
         var lifeElement = document.querySelector('.life' + i);
 
-        // Show or hide the Pac-Man life images based on the remaining lives
+       
         if (i <= pacman.health) {
             lifeElement.style.display = 'block';
         } else {
@@ -367,22 +367,22 @@ var gameContainer = document.getElementById("gameContainer");
 var gamePaused = true;
 
 document.getElementById("startButton").addEventListener("click", function () {
-    // Play the start sound
+   
     startSound.play();
 
-    // Add an event listener to detect when the start sound ends
+    
     startSound.addEventListener("ended", function () {
-        gamePaused = false; // Allow the game to start updating
-        gameContainer.focus(); // Focus on the game container to capture keyboard input
+        gamePaused = false; 
+        gameContainer.focus(); 
     });
 
-    // Hide the start button after starting the game
+   
     this.style.display = "none";
 });
 
 function updateGame() {
     if (!gamePaused) {
-        // Your game update logic goes here
+        
         displayWorld();
         displayPacman();
         displayAllGhosts();
@@ -410,10 +410,10 @@ document.onkeydown = function (e) {
         pacman.direction = 'left';
         pacman.x--;
     }
-    if (world[pacman.y][pacman.x] == 4) { // Assuming 4 is the value for the fruit
+    if (world[pacman.y][pacman.x] == 4) { 
         startPowerUp();
-        world[pacman.y][pacman.x] = 0; // Remove the fruit from the world
-        displayWorld(); // Update the world display
+        world[pacman.y][pacman.x] = 0; 
+        displayWorld();
     }
     
     
@@ -421,13 +421,13 @@ document.onkeydown = function (e) {
        
         pacman.x =39;
         pacman.y=11;
-        displayWorld(); // Update the world display
+        displayWorld(); 
     }
     if (world[pacman.y][pacman.x] == 7) { 
        
         pacman.x =1;
         pacman.y=5;
-        displayWorld(); // Update the world display
+        displayWorld(); 
     }
 
 

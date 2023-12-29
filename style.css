@@ -5,7 +5,7 @@ body {
 
 .game-container {
     position: relative;
-    margin-top: -60px; /* Adjust the negative margin as needed */
+    margin-top: -60px; 
 }
 
 div.row div {
@@ -20,14 +20,14 @@ div.row div {
 
 .logo {
     text-align: center;
-    margin-bottom: 20px; /* Add margin at the bottom of the logo */
+    margin-bottom: 20px; 
 }
 
 .logo img {
     width: 650px;
     height: 150px;
-    display: block; /* Center the image */
-    margin: 0 auto; /* Center the image horizontally */
+    display: block; 
+    margin: 0 auto; 
 }
 
 
@@ -65,7 +65,7 @@ div.row div {
     font-family: 'Poppins', sans-serif;
     color: rgb(127, 193, 255);
     font-weight: bolder;
-    top: 14px; /* Adjust as needed */
+    top: 14px;
     right:-30px;
     transform: translateX(-50%);
     position: relative;
@@ -132,9 +132,9 @@ div.row div {
 }
 
 .pacman-life {
-    width: 60px; /* Adjust the width of each Pac-Man life image */
-    height: 60px; /* Adjust the height of each Pac-Man life image */
-    margin: 5px; /* Adjust the spacing between Pac-Man life images */
+    width: 60px; 
+    height: 60px;
+    margin: 5px; 
     background-size: cover;
 
 }
@@ -172,11 +172,11 @@ button {
     transform: translate(-50%, -50%);
     padding: 20px 40px;
     font-size: 24px;
-    background-color: #ffcc00; /* Arcade theme color */
-    color: #333; /* Text color */
-    border: 2px solid #ffcc00; /* Border color */
+    background-color: #ffcc00; 
+    color: #333; 
+    border: 2px solid #ffcc00; 
     border-radius: 10px;
-    font-family: 'Press Start 2P', cursive; /* Arcade-style font, you can use Google Fonts for this */
+    font-family: 'Press Start 2P', cursive; 
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
